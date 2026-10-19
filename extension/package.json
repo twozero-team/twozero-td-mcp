@@ -11,6 +11,7 @@
     "Other"
   ],
   "icon": "icon.png",
+  "license": "Apache-2.0",
   "activationEvents": [
     "onStartupFinished"
   ],
