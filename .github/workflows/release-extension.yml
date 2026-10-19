@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the release; the org's default GITHUB_TOKEN is read-only
     defaults:
       run:
         working-directory: extension
