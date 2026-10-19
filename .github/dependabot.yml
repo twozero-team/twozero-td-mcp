@@ -1,0 +1,32 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    # Wait a week before proposing a release: compromised releases are usually pulled by then
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]
+        update-types: [minor, patch]
+    commit-message:
+      prefix: ci
+
+  - package-ecosystem: npm
+    directory: /extension
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      dev-dependencies:
+        patterns: ["*"]
+        dependency-type: development
+        update-types: [minor, patch]
+    ignore:
+      # Must not run ahead of engines.vscode, or vsce refuses to package
+      - dependency-name: "@types/vscode"
+    commit-message:
+      prefix: build
