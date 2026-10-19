@@ -30,7 +30,7 @@ jobs:
         run: npm run compile
 
       - name: Package VSIX
-        run: npx @vscode/vsce package --allow-missing-repository
+        run: npx @vscode/vsce package
 
       - name: Upload VSIX Artifact
         uses: actions/upload-artifact@v4
