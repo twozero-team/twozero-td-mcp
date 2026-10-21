@@ -1,4 +1,7 @@
-﻿extension/node_modules/
+extension/node_modules/
+# Built by the release workflow
+extension/out/
+*.vsix
 *.log
 .DS_Store
 Thumbs.db

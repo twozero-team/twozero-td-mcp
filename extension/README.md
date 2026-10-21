@@ -1,67 +1,36 @@
-# twozero MCP (Cursor Extension)
+# TWOZERO MCP for Cursor
 
-Cursor extension that adds TouchDesigner MCP connection for twozero.
+Adds the TWOZERO MCP server for TouchDesigner to Cursor.
 
-## Requirements
+When Cursor starts, the extension writes one entry to `~/.cursor/mcp.json`:
 
-- TouchDesigner `2025.32280+`
-- twozero plugin: [https://www.404zero.com/twozero](https://www.404zero.com/twozero)
-- For best TD results: `Claude 4.6+` or `GPT-5.3+`
+```json
+{
+  "mcpServers": {
+    "twozero_td": {
+      "url": "http://localhost:40404/mcp"
+    }
+  }
+}
+```
 
-## Quickstart
+If `twozero_td` is already there, it changes nothing. To write the entry again, run **twozero MCP: Setup Connection** from the Command Palette.
 
-1. Install twozero in TD from tox:
-   - [https://www.404zero.com/pisang/twozero.tox](https://www.404zero.com/pisang/twozero.tox) -> Install
-2. Install this VSIX in Cursor.
+## Before you start
+
+Install the TWOZERO plugin in TouchDesigner: [download `twozero.tox`](https://twozero.ai/download/twozero.tox). The MCP server runs inside the plugin. Compatibility and setup for other agents: [README](https://github.com/twozero-team/twozero-td-mcp#readme).
+
+## Install
+
+1. Download `twozero-mcp-<version>.vsix` from [Releases](https://github.com/twozero-team/twozero-td-mcp/releases/latest).
+2. In Cursor, open the Command Palette, run **Extensions: Install from VSIX...** and pick the file.
 3. Reload Cursor.
-
-The extension writes:
-
-```json
-{
-  "mcpServers": {
-    "twozero_td": {
-      "url": "http://localhost:40404/mcp"
-    }
-  }
-}
-```
-
-## Manual setup (without extension)
-
-### Cursor
-
-`~/.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "twozero_td": {
-      "url": "http://localhost:40404/mcp"
-    }
-  }
-}
-```
-
-### Codex
-
-`~/.codex/config.toml`:
-
-```toml
-[mcp_servers.twozero_td]
-url = "http://127.0.0.1:40404/mcp"
-```
-
-### Claude Code
-
-```bash
-claude mcp add --transport http --scope user twozero_td http://localhost:40404/mcp
-```
 
 ## Build
 
 ```bash
-npm install
-npm run compile
-npx @vscode/vsce package --allow-missing-repository
+npm ci
+npx @vscode/vsce package
 ```
+
+`vsce package` compiles the TypeScript first (`vscode:prepublish`). Release builds come from the [release workflow](https://github.com/twozero-team/twozero-td-mcp/blob/main/.github/workflows/release-extension.yml) when a `v*` tag is pushed.
